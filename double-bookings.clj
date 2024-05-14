@@ -1,6 +1,11 @@
 (use '[clojure.test :only [is]])
 
 (defn meetings-overlap?
+  "Compares a pair of meetings and returns
+  true if the meeting times overlap. The
+  meeting pair is expected to be ordered with
+  mtg1 starting before or at the sametime as
+  mtg2"
   [[mtg1 mtg2]]
   (and (>= (:start mtg2) (:start mtg1))
        (< (:start mtg2) (:end mtg1))))
@@ -54,4 +59,4 @@
 (def schedule5 [{:start 1000 :end 1500} {:start 1001 :end 1200}])
 (is (= (overlapping schedule5) [[{:start 1000 :end 1500} {:start 1001 :end 1200}]]))
 
-(is (overlapping nil) [])
+(is (= (overlapping nil) []))
